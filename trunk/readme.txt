@@ -1,0 +1,1 @@
+svn repository: https://tcsudoku.googlecode.com/svn
