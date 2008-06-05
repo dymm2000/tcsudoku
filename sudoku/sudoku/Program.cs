@@ -140,7 +140,7 @@ namespace sudoku
                     bool emptyCell = currentTable.table[rowIndex, colIndex] == 0;
                     if (emptyCell)
                     {
-                        for (byte newDigit = 1; newDigit<= tableSize; newDigit++)
+                        for (byte newDigit = 1; newDigit <= tableSize; newDigit++)
                         {
                             bool enabledDigit = currentTable.CheckIfDigitEnabled(newDigit, rowIndex, colIndex);
                             if (enabledDigit)
