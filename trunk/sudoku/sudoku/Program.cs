@@ -7,16 +7,22 @@ namespace sudoku
     public struct SudokuTable
     {
         public byte tableSize;
+        public byte sub_block_col_size;
+        public byte sub_block_row_size;
         public byte[,] table;
         public SudokuTable(byte tableSize)
         {
             this.tableSize = tableSize;
-            table = new byte[tableSize,tableSize];
+            sub_block_col_size = (byte)(tableSize / 2);
+            sub_block_row_size = (byte)(tableSize / sub_block_col_size);
+            table = new byte[tableSize, tableSize];
         }
         public SudokuTable(SudokuTable sudokuTable)
         {
             tableSize = sudokuTable.tableSize;
             table = (byte[,]) sudokuTable.table.Clone();
+            sub_block_col_size = sudokuTable.sub_block_col_size;
+            sub_block_row_size = sudokuTable.sub_block_row_size;
         }
         public bool CheckIfDigitEnabled(byte newDigit, byte rowIndex, byte colIndex)
         {
