@@ -132,7 +132,6 @@ namespace sudoku
                 return;
 
             byte tableSize = currentTable.tableSize;
-            bool atLeastOneCellIsEmpty = false;
 
             for (byte rowIndex = 0; rowIndex < tableSize; rowIndex++)
             {
@@ -141,14 +140,11 @@ namespace sudoku
                     bool emptyCell = currentTable.table[rowIndex, colIndex] == 0;
                     if (emptyCell)
                     {
-                        atLeastOneCellIsEmpty = true;
-                        //bool atLeastOneDigitFound = false;
                         for (byte newDigit = 1; newDigit<= tableSize; newDigit++)
                         {
                             bool enabledDigit = currentTable.CheckIfDigitEnabled(newDigit, rowIndex, colIndex);
                             if (enabledDigit)
                             {
-                                //atLeastOneDigitFound = true;
                                 SudokuTable newSudokuTable = new SudokuTable(currentTable);
                                 newSudokuTable.table[rowIndex, colIndex] = newDigit;
                                 FindSolution(sudokuSolution, newSudokuTable);
@@ -160,7 +156,6 @@ namespace sudoku
                     }
                 }
             }
-            //if (!atLeastOneCellIsEmpty)
             sudokuSolution.AddSolution(currentTable);
         }
     }
