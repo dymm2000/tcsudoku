@@ -33,7 +33,7 @@ namespace sudoku
         }
         bool ifDigitEnabledInRow(byte newDigit, byte rowIndex)
         {
-            for (int index = 0; index < tableSize; index++)
+            for (byte index = 0; index < tableSize; index++)
             {
                 if (table[rowIndex, index] == newDigit)
                     return false;
@@ -42,7 +42,7 @@ namespace sudoku
         }
         bool ifDigitEnabledInCol(byte newDigit, byte colIndex)
         {
-            for (int index = 0; index < tableSize; index++)
+            for (byte index = 0; index < tableSize; index++)
             {
                 if (table[index, colIndex] == newDigit)
                     return false;                
@@ -51,7 +51,17 @@ namespace sudoku
         }
         bool ifDigitEnabledInSubBlock(byte newDigit, byte rowIndex, byte colIndex)
         {
-            //TODO the method should be implemented
+            byte block_row_index = (byte) (rowIndex/sub_block_row_size);
+            byte block_col_index = (byte) (colIndex/sub_block_col_size);
+
+            for (byte rowI = (byte) (block_row_index * sub_block_row_size); rowI < (block_row_index + 1) * sub_block_row_size; rowI++)
+            {
+                for (byte colI = (byte) (block_col_index * sub_block_col_size); colI < (block_col_index + 1) * sub_block_col_size; colI++)
+                {
+                    if (table[rowI, colI] == newDigit)
+                        return false;
+                }
+            }
             return true;
         }
     }
