@@ -10,27 +10,27 @@ namespace sudoku
         {
             string inputFileName = args[0];
             string[] inputData = File.ReadAllLines(inputFileName);
-            int taskIndex = 1;
-            foreach (string inputLine in inputData)
+            
+            for (int taskIndex = 1; taskIndex < inputData.Length; taskIndex++)
             {
+                string inputLine = inputData[taskIndex];
                 SudokuTable sudokuTable = CreateSudokuTable(inputLine);
 
-                SudokuSolution sudokuSolution = new SudokuSolution(sudokuTable);
-                ISolver solver = new LogWrapperSolver(new SequentialSolver(sudokuSolution));
+                SudokuSolution sudokuSolution = new SudokuSolution(taskIndex, sudokuTable);
+                ISolver solver = new SequentialSolver(sudokuSolution);
                 solver.Execute();
-                PrintSolution(sudokuSolution, taskIndex);
-                taskIndex++;
+                PrintSolution(sudokuSolution);
             }
 
-            foreach (string inputLine in inputData)
-            {
-                SudokuTable sudokuTable = CreateSudokuTable(inputLine);
-
-                SudokuSolution sudokuSolution = new SudokuSolution(sudokuTable);
-                ISolver solver = new LogWrapperSolver(new MultiThreadedSolver(sudokuSolution));
-                solver.Execute();
-                PrintSolution(sudokuSolution, taskIndex);
-            }
+//            foreach (string inputLine in inputData)
+//            {
+//                SudokuTable sudokuTable = CreateSudokuTable(inputLine);
+//
+//                SudokuSolution sudokuSolution = new SudokuSolution(sudokuTable);
+//                ISolver solver = new LogWrapperSolver(new MultiThreadedSolver(sudokuSolution));
+//                solver.Execute();
+//                PrintSolution(sudokuSolution, taskIndex);
+//            }
         }
         static SudokuTable CreateSudokuTable(string inputLine)
         {
@@ -49,22 +49,21 @@ namespace sudoku
             }
             return sudokuTable;
         }
-        static void PrintSolution(SudokuSolution sudokuSolution, int taskIndex)
+        static void PrintSolution(SudokuSolution sudokuSolution)
         {
-            string outputTaskIndex = taskIndex.ToString().PadLeft(2);
             switch (sudokuSolution.SolutionsNumber)
             {
                 case SudokuSolution.NO_SOLUTION:
-                    Console.WriteLine("Puzzle # {0} has NO solution", outputTaskIndex);
+                    Console.WriteLine("Puzzle # {0,5:} has NO solution", sudokuSolution.TaskId);
                     break;
                 case SudokuSolution.UNIQUE_SOLUTION:
-                    Console.WriteLine("Puzzle # {0} has a UNIQUE solution", outputTaskIndex);
+                    Console.WriteLine("Puzzle # {0,5:} has a UNIQUE solution", sudokuSolution.TaskId);
                     break;
                 case SudokuSolution.MULTIPLE_SOLUTION:
-                    Console.WriteLine("Puzzle # {0} has a MULTIPLE solutions", outputTaskIndex);
+                    Console.WriteLine("Puzzle # {0,5:} has a MULTIPLE solutions", sudokuSolution.TaskId);
                     break;
                 default:
-                    Console.WriteLine("Puzzle # {0} has a MULTIPLE solutions", outputTaskIndex);
+                    Console.WriteLine("Puzzle # {0,5:} has a MULTIPLE solutions", sudokuSolution.TaskId);
                     break;
             }
         }
