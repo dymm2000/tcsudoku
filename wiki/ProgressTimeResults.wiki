@@ -1,8 +1,9 @@
 #labels Phase-Implementation
 ----
 *10/06/2008* 100000 sudoku lines
-loading data time: 00:00:00.0625000; 00.43%
-processing time: 00:00:09.7187500; 67.39%
-printing time: 00:00:04.4687500; 30.99%
-full time: 00:00:14.4218750
+|| operation || time || in % ||
+|| loading data time || 00:00:00.0625000 || 00.43% ||
+|| processing time || 00:00:09.7187500 || 67.39% ||
+|| printing time || 00:00:04.4687500 || 30.99% ||
+|| full time || 00:00:14.4218750 || ||
 ----
