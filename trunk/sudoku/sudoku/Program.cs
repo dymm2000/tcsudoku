@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.IO;
 
 namespace sudoku
@@ -8,29 +9,44 @@ namespace sudoku
         static readonly byte charZeroCode = BitConverter.GetBytes('0')[0];
         static void Main(string[] args)
         {
+            TimeSpan fullTime;
+            TimeSpan processingTime = new TimeSpan();
+            TimeSpan printingTime = new TimeSpan();
+
+            DateTime startFullTime = DateTime.Now;
+
             string inputFileName = args[0];
+            DateTime startLoadingData = DateTime.Now;
             string[] inputData = File.ReadAllLines(inputFileName);
+            TimeSpan loadingTime = DateTime.Now - startLoadingData;
             
-            for (int taskIndex = 1; taskIndex < inputData.Length; taskIndex++)
+            for (int taskIndex = 0; taskIndex < inputData.Length; taskIndex++)
             {
+                DateTime startProcessingTime = DateTime.Now;
                 string inputLine = inputData[taskIndex];
                 SudokuTable sudokuTable = CreateSudokuTable(inputLine);
 
-                SudokuSolution sudokuSolution = new SudokuSolution(taskIndex, sudokuTable);
+                SudokuSolution sudokuSolution = new SudokuSolution(taskIndex + 1, sudokuTable);
                 ISolver solver = new SequentialSolver(sudokuSolution);
                 solver.Execute();
-                PrintSolution(sudokuSolution);
-            }
+                processingTime += (DateTime.Now - startProcessingTime);
 
-//            foreach (string inputLine in inputData)
-//            {
-//                SudokuTable sudokuTable = CreateSudokuTable(inputLine);
-//
-//                SudokuSolution sudokuSolution = new SudokuSolution(sudokuTable);
-//                ISolver solver = new LogWrapperSolver(new MultiThreadedSolver(sudokuSolution));
-//                solver.Execute();
-//                PrintSolution(sudokuSolution, taskIndex);
-//            }
+                DateTime startPrintingTime = DateTime.Now;
+                PrintSolution(sudokuSolution);
+                printingTime += DateTime.Now - startPrintingTime;
+            }
+            fullTime = DateTime.Now - startFullTime;
+
+            if (fullTime.Ticks > 0)
+            {
+                Debug.WriteLine(String.Format("loading data time: {0}; {1:00.00}%", loadingTime,
+                                              ((double) loadingTime.Ticks/(double) fullTime.Ticks)*100));
+                Debug.WriteLine(String.Format("processing time: {0}; {1:00.00}%", processingTime,
+                                              ((double) processingTime.Ticks/(double) fullTime.Ticks)*100));
+                Debug.WriteLine(String.Format("printing time: {0}; {1:00.00}%", printingTime,
+                                              ((double) printingTime.Ticks/(double) fullTime.Ticks)*100));
+            }
+            Debug.WriteLine("full time: " + fullTime);
         }
         static SudokuTable CreateSudokuTable(string inputLine)
         {
