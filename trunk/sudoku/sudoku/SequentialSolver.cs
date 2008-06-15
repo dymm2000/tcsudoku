@@ -3,9 +3,11 @@ namespace sudoku
     public class SequentialSolver : ISolver
     {
         readonly SudokuSolution sudokuSolution;
+        byte tableSize;
         public SequentialSolver(SudokuSolution sudokuSolution)
         {
             this.sudokuSolution = sudokuSolution;
+            tableSize = sudokuSolution.InitialTable.tableSize;
         }
         #region ISolver
         public void Execute()
@@ -15,11 +17,6 @@ namespace sudoku
         #endregion
         void FindSolution(SudokuTable currentTable)
         {
-            if (sudokuSolution.IsMultiSolutions)
-                return;
-
-            byte tableSize = currentTable.tableSize;
-
             for (byte rowIndex = 0; rowIndex < tableSize; rowIndex++)
             {
                 for (byte colIndex = 0; colIndex < tableSize; colIndex++)
