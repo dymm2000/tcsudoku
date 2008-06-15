@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using System.Threading;
 
 namespace sudoku
@@ -31,15 +30,12 @@ namespace sudoku
         {
             for (int i = 0; i < allSolutions.Length; i++)
             {
-                if (allSolutions[i] != 255)
-                {
-                    PrintServices.PrintSolution(i, allSolutions[i]);
-                }
-                else
+                while (allSolutions[i] == 255)
                 {
                     lock (solutionsObject)
                         Monitor.Wait(solutionsObject);
                 }
+                PrintServices.PrintSolution(i, allSolutions[i]);
             }
         }
 
