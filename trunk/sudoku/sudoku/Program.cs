@@ -35,7 +35,7 @@ namespace sudoku
         static void Starter(object threadIndex)
         {
             int portionIndex = (byte) threadIndex;
-            int portionSize = inputData.Length/executerCoresCount;
+            int portionSize = (inputData.Length/executerCoresCount) + 1;
             int startIndex = portionIndex * portionSize;
             int finishIndex = Math.Min((portionIndex + 1) * portionSize, inputData.Length);
 
