@@ -34,6 +34,7 @@ namespace sudoku
         }
         static void Starter(object threadIndex)
         {
+            DateTime startThreadTime = DateTime.Now;
             int portionIndex = (byte) threadIndex;
             int portionSize = (inputData.Length/executerCoresCount) + 1;
             int startIndex = portionIndex * portionSize;
@@ -50,6 +51,9 @@ namespace sudoku
 
                 solutions.AddSolution(taskIndex, sudokuSolution.SolutionsNumber);
             }
+
+            TimeSpan threadTime = DateTime.Now - startThreadTime;
+            Debug.WriteLine(String.Format("thread #{0} time: {1}", portionIndex, threadTime));
         }
         static SudokuTable CreateSudokuTable(string inputLine)
         {

@@ -4,7 +4,6 @@ namespace sudoku
 {
     public class Solutions
     {
-        readonly static object solutionsObject = new object();
         readonly byte[] allSolutions;
         Thread thread;
         public Solutions(int solutionsCount)
@@ -32,19 +31,13 @@ namespace sudoku
             {
                 while (allSolutions[i] == 255)
                 {
-                    lock (solutionsObject)
-                        Monitor.Wait(solutionsObject);
                 }
                 PrintServices.PrintSolution(i, allSolutions[i]);
             }
         }
-
         public void AddSolution(int taskIndex, byte solutionsNumber)
         {
-            //Trace.WriteLine("taskIndex: " + taskIndex);
             allSolutions[taskIndex] = solutionsNumber;
-            lock (solutionsObject)
-                Monitor.Pulse(solutionsObject);
         }
     }
 }
