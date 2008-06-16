@@ -7,6 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sudoku", "sudoku\sudoku.csp
 		Release.AspNetCompiler.Debug = "False"
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "table", "table\table.csproj", "{7C389D21-C862-4305-BE1C-FE7B1916EB58}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +23,10 @@ Global
 		{60E8B7D5-9C7D-4CAC-961D-08B8003268A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60E8B7D5-9C7D-4CAC-961D-08B8003268A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60E8B7D5-9C7D-4CAC-961D-08B8003268A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C389D21-C862-4305-BE1C-FE7B1916EB58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C389D21-C862-4305-BE1C-FE7B1916EB58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C389D21-C862-4305-BE1C-FE7B1916EB58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C389D21-C862-4305-BE1C-FE7B1916EB58}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

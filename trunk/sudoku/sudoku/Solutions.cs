@@ -4,6 +4,7 @@ namespace sudoku
 {
     public class Solutions
     {
+        const int NONE_SOLUTION = 255;
         readonly byte[] allSolutions;
         Thread thread;
         public Solutions(int solutionsCount)
@@ -11,7 +12,7 @@ namespace sudoku
             allSolutions = new byte[solutionsCount];
             for (int i = 0; i < allSolutions.Length; i++)
             {
-                allSolutions[i] = 255;
+                allSolutions[i] = NONE_SOLUTION;
             }
         }
 
@@ -29,7 +30,7 @@ namespace sudoku
         {
             for (int i = 0; i < allSolutions.Length; i++)
             {
-                while (allSolutions[i] == 255)
+                while (allSolutions[i] == NONE_SOLUTION)
                 {
                 }
                 PrintServices.PrintSolution(i, allSolutions[i]);
