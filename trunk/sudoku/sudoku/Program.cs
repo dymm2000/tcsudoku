@@ -14,9 +14,24 @@ namespace sudoku
         static void Main(string[] args)
         {
             DateTime startFullTime = DateTime.Now;
+
+            string inputFileName;
+            try
+            {
+                inputFileName = args[0];
+                if (!File.Exists(inputFileName))
+                    throw new Exception(String.Format("file {0} not found.", inputFileName));
+            }
+            catch (Exception exp)
+            {
+                Console.WriteLine("sudoku.exe input_sudiku_tasks_file");
+                Console.WriteLine();
+                Console.WriteLine("Program failed with message: {0}", exp.Message);
+                return;
+            }
             
-            Thread[] executerThreads = new Thread[executerCoresCount];
-            string inputFileName = args[0];
+
+            Thread[] executerThreads = new Thread[executerCoresCount];            
             inputData = File.ReadAllLines(inputFileName);
             solutions = new Solutions(inputData.Length);
             solutions.StartThread();
@@ -57,6 +72,9 @@ namespace sudoku
         }
         static SudokuTable CreateSudokuTable(string inputLine)
         {
+            const char UNDEFINED_CHAR = '*';
+            const byte UNDEFINED_NUMBER = 0;
+
             byte sudokuSize = (byte)Math.Sqrt(inputLine.Length);
             SudokuTable sudokuTable = new SudokuTable(sudokuSize);
 
@@ -65,8 +83,8 @@ namespace sudoku
                 int rowIndex = digitIndex / sudokuSize;
                 int colIndex = digitIndex % sudokuSize;
                 char inputDigit = inputLine[digitIndex];
-                if (inputDigit == '*')
-                    sudokuTable.table[rowIndex, colIndex] = 0;
+                if (inputDigit == UNDEFINED_CHAR)
+                    sudokuTable.table[rowIndex, colIndex] = UNDEFINED_NUMBER;
                 else
                     sudokuTable.table[rowIndex, colIndex] = (byte)(BitConverter.GetBytes(inputDigit)[0] - charZeroCode);
             }
