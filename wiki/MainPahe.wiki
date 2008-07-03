@@ -1,0 +1,4 @@
+*Problems List*
+ * [http://code.google.com/p/tcsudoku/wiki/AmicableNumberProblem Amicable Number]
+ * [http://code.google.com/p/tcsudoku/wiki/ProblemDescription 6x6 Sudoku]
+
