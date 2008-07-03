@@ -1,3 +1,6 @@
+
+[http://softwarecontests.intel.com/threadingchallenge/index.php]
+
 A pair of integers is considered amicable if the sum of proper divisors for one number equals the second and vice versa.
 
 Example: 220, 284
