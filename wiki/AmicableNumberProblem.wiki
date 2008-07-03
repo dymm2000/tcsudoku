@@ -1,4 +1,6 @@
 [http://softwarecontests.intel.com/threadingchallenge/index.php]
+[http://en.wikipedia.org/wiki/Amicable_numbers Amicable Numbers in wikipedia]
+[http://en.wikipedia.org/wiki/Friendly_number Friendly Number in wikipedia]
 
 A pair of integers is considered amicable if the sum of proper divisors for one number equals the second and vice versa.
 {{{
