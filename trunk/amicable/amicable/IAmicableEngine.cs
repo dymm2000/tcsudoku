@@ -4,6 +4,6 @@ namespace amicable
     {
         bool IsAmicableNumbers { get; }
         bool IsFriendlyNumbers { get; }
-        void Execute(int number1, int number2);
+        void Execute(uint number1, uint number2);
     }
 }
