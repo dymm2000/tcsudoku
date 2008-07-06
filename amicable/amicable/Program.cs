@@ -26,9 +26,9 @@ namespace amicable
 
             IAmicableEngine amicableEngine = new SeqAmicableEngine();
 
-            for (int number1 = input.minRange; number1 <= input.maxRange; number1++)
+            for (uint number1 = input.minRange; number1 <= input.maxRange; number1++)
             {
-                for (int number2 = number1 + 1; number2 <= input.maxRange; number2++)
+                for (uint number2 = number1 + 1; number2 <= input.maxRange; number2++)
                 {
                     amicableEngine.Execute(number1, number2);
                     if (amicableEngine.IsAmicableNumbers)
