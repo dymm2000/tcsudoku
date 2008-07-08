@@ -33,6 +33,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AmicableEngineByPrimary.cs" />
     <Compile Include="IAmicableEngine.cs" />
     <Compile Include="Input.cs" />
     <Compile Include="InputServices.cs" />
