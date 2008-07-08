@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 
 namespace amicable
 {
@@ -6,6 +7,8 @@ namespace amicable
     {
         static void Main(string[] args)
         {
+            DateTime startTime = DateTime.Now;
+
             Input input;
             try
             {
@@ -19,7 +22,7 @@ namespace amicable
                 Console.WriteLine("Amicable.exe minRange maxRange");
                 Console.WriteLine();
                 Console.WriteLine("Search amicable and friendly numbers in defined range.");
-                input = new Input();
+                return;
             }
 
             IOutputManager outputManager = new ConsoleOutputManager();
@@ -29,6 +32,9 @@ namespace amicable
 
 //            IAmicableEngine stupidPlunkAmicableEngine = new StupidPlunkAmicableEngine();
 //            stupidPlunkAmicableEngine.Execute(input.minRange, input.maxRange, outputManager);
+
+            TimeSpan fullTime = DateTime.Now - startTime;
+            Debug.WriteLine("fullTime: " + fullTime);
         }
     }
 }
