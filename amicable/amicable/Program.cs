@@ -34,7 +34,7 @@ namespace amicable
 //            stupidPlunkAmicableEngine.Execute(input.minRange, input.maxRange, outputManager);
 
             TimeSpan fullTime = DateTime.Now - startTime;
-            Debug.WriteLine("fullTime: " + fullTime);
+            Trace.WriteLine("fullTime: " + fullTime);
         }
     }
 }
