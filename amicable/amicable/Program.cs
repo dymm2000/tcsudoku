@@ -19,24 +19,16 @@ namespace amicable
                 Console.WriteLine("Amicable.exe minRange maxRange");
                 Console.WriteLine();
                 Console.WriteLine("Search amicable and friendly numbers in defined range.");
-                return;
+                input = new Input();
             }
 
-            //Console.WriteLine("Amicable range: {0} .. {1}", input.minRange, input.maxRange);
+            IOutputManager outputManager = new ConsoleOutputManager();
 
-            IAmicableEngine amicableEngine = new SeqAmicableEngine();
+            IAmicableEngine smartPlunkAmicableEngine = new SmartPlunkAmicableEngine(input.minRange, input.maxRange);
+            smartPlunkAmicableEngine.Execute(input.minRange, input.maxRange, outputManager);
 
-            for (uint number1 = input.minRange; number1 <= input.maxRange; number1++)
-            {
-                for (uint number2 = number1 + 1; number2 <= input.maxRange; number2++)
-                {
-                    amicableEngine.Execute(number1, number2);
-                    if (amicableEngine.IsAmicableNumbers)
-                        Console.WriteLine("{0} and {1} are AMICABLE", number1, number2);
-                    if (amicableEngine.IsFriendlyNumbers)
-                        Console.WriteLine("{0} and {1} are FRIENDLY", number1, number2);
-                }
-            }            
+//            IAmicableEngine stupidPlunkAmicableEngine = new StupidPlunkAmicableEngine();
+//            stupidPlunkAmicableEngine.Execute(input.minRange, input.maxRange, outputManager);
         }
     }
 }
