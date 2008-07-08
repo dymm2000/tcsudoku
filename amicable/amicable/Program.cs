@@ -27,11 +27,14 @@ namespace amicable
 
             IOutputManager outputManager = new ConsoleOutputManager();
 
-            IAmicableEngine smartPlunkAmicableEngine = new SmartPlunkAmicableEngine(input.minRange, input.maxRange);
+            IAmicableEngine smartPlunkAmicableEngine = new SmartPlunkAmicableEngine();
             smartPlunkAmicableEngine.Execute(input.minRange, input.maxRange, outputManager);
 
 //            IAmicableEngine stupidPlunkAmicableEngine = new StupidPlunkAmicableEngine();
 //            stupidPlunkAmicableEngine.Execute(input.minRange, input.maxRange, outputManager);
+
+//            IAmicableEngine amicableEngineByPrimary = new AmicableEngineByPrimary();
+//            amicableEngineByPrimary.Execute(input.minRange, input.maxRange, outputManager);
 
             TimeSpan fullTime = DateTime.Now - startTime;
             Trace.WriteLine("fullTime: " + fullTime);
