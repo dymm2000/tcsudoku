@@ -10,7 +10,7 @@ namespace amicable
             for (uint number = minNumber; number <= maxNumber; number++)
             {
                 uint summa = 0;
-                for (uint i = 1; i < (number >> 1); i++)
+                for (uint i = 1; i <= (number >> 1); i++)
                 {
                     if (number % i == 0)
                         summa += i;

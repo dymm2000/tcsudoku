@@ -9,11 +9,87 @@ namespace amicable
         public void Execute(uint minNumber, uint maxNumber, IOutputManager outputManager)
         {
             uint[] primaryNumbers = CreatePrimaryNumbersArray(maxNumber);
-            for (uint number = minNumber; number < maxNumber; number++)
+            int primaryIndex = Array.FindIndex(primaryNumbers, delegate(uint number) { return minNumber <= number; });
+            primaryIndex++;
+
+            #region Create Summa Array
+            uint[] summaArray = new uint[maxNumber - minNumber + 1];
+            for (uint number = minNumber; number <= maxNumber; number++)
             {
+                if (number >= primaryNumbers[primaryIndex])
+                    primaryIndex = Math.Min(primaryIndex+1, primaryNumbers.Length - 1);
                 
+                uint summa = CalculateSumma(primaryNumbers, primaryIndex, number);
+                summaArray[number - minNumber] = summa;
+            }
+            #endregion
+
+            bool isAmicableNumbers;
+            bool isFriendlyNumbers;
+            uint summaOfNumber1;
+            uint summaOfNumber2;
+            for (uint number1 = minNumber; number1 < maxNumber; number1++)
+            {
+                summaOfNumber1 = summaArray[number1 - minNumber];
+                double relOfNumber1 = ((double)(summaOfNumber1 + number1) / number1);
+
+                for (uint number2 = number1 + 1; number2 <= maxNumber; number2++)
+                {
+                    summaOfNumber2 = summaArray[number2 - minNumber];
+
+                    isAmicableNumbers = (summaOfNumber1 == number2) && (number1 == summaOfNumber2);
+                    isFriendlyNumbers = relOfNumber1 == ((double)(summaOfNumber2 + number2) / number2);
+
+                    if (isAmicableNumbers)
+                        outputManager.AddAmicablePair(number1, number2);
+                    if (isFriendlyNumbers)
+                        outputManager.AddFriendlyPair(number1, number2);
+                }
             }
         }
+
+        uint CalculateSumma(uint[] primaryNumbers, int primaryCount, uint number)
+        {
+            uint summa = (uint) (number == 1 ? 0: 1);
+            List<uint> actualPrimaryDividers = new List<uint>();
+
+            for (uint i = 0; i < primaryCount; i++)
+            {
+                uint primaryI = primaryNumbers[i];
+                uint divider = primaryI;
+                while (number % divider == 0 && divider != number)
+                {
+                    actualPrimaryDividers.Add(primaryI);
+                    divider *= primaryI;
+                }
+            }
+            uint[] actualPrimaryDividersArray = actualPrimaryDividers.ToArray();
+            List<uint> dividers = new List<uint>();
+
+            for (uint pointer = 1; pointer < ((1 << actualPrimaryDividersArray.Length) - 1); pointer++)
+            {
+                int index = 0;
+                uint pointerSumma = 1;
+                uint counter = pointer;
+                while (counter != 0)
+                {
+                    if (counter % 2 != 0)
+                    {
+                        uint nextDivider = actualPrimaryDividersArray[index];
+                        pointerSumma *= nextDivider;
+                    }
+                    counter >>= 1;
+                    index++;
+                }
+                if (!dividers.Contains(pointerSumma))
+                {
+                    dividers.Add(pointerSumma);
+                    summa += pointerSumma;
+                }
+            }
+            return summa;
+        }
+
         #endregion
         uint[] CreatePrimaryNumbersArray(uint maxNumber)
         {
@@ -69,6 +145,8 @@ namespace amicable
 
             #region fill primary numbers' list
             List<uint> primaryList = new List<uint>();
+            primaryList.Add(2);
+            primaryList.Add(3);
             for (uint i = 0; i < is_prime.Length; i++)
             {
                 if (is_prime[i])
