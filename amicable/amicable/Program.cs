@@ -3,6 +3,13 @@ using System.Diagnostics;
 
 namespace amicable
 {
+    enum Strategy
+    {
+        StupidPlunkAmicable,
+        SmartPlunkAmicable,
+        AmicableEngineByPrimary,
+        TheBestStrategy
+    }
     class Program
     {
         static void Main(string[] args)
@@ -25,16 +32,34 @@ namespace amicable
                 return;
             }
 
+            Strategy strategy;
+            try
+            {
+                strategy = (Strategy) Enum.Parse(typeof (Strategy), args[2]);
+            }
+            catch (Exception)
+            {
+                strategy = Strategy.TheBestStrategy;
+            }
+
             IOutputManager outputManager = new ConsoleOutputManager();
-
-            IAmicableEngine smartPlunkAmicableEngine = new SmartPlunkAmicableEngine();
-            smartPlunkAmicableEngine.Execute(input.minRange, input.maxRange, outputManager);
-
-//            IAmicableEngine stupidPlunkAmicableEngine = new StupidPlunkAmicableEngine();
-//            stupidPlunkAmicableEngine.Execute(input.minRange, input.maxRange, outputManager);
-
-//            IAmicableEngine amicableEngineByPrimary = new AmicableEngineByPrimary();
-//            amicableEngineByPrimary.Execute(input.minRange, input.maxRange, outputManager);
+            IAmicableEngine amicableEngine;
+            switch (strategy)
+            {
+                case Strategy.StupidPlunkAmicable:
+                    amicableEngine = new StupidPlunkAmicableEngine();
+                    break;
+                case Strategy.SmartPlunkAmicable:
+                    amicableEngine = new SmartPlunkAmicableEngine();
+                    break;
+                case Strategy.AmicableEngineByPrimary:
+                    amicableEngine = new AmicableEngineByPrimary();
+                    break;
+                default:
+                    amicableEngine = new SmartPlunkAmicableEngine();
+                    break;
+            }
+            amicableEngine.Execute(input.minRange, input.maxRange, outputManager);
 
             TimeSpan fullTime = DateTime.Now - startTime;
             Trace.WriteLine("fullTime: " + fullTime);
