@@ -8,6 +8,7 @@ namespace amicable
         StupidPlunkAmicable,
         SmartPlunkAmicable,
         AmicableEngineByPrimary,
+        ThreadedAmicableEngine,
         TheBestStrategy
     }
     class Program
@@ -55,8 +56,11 @@ namespace amicable
                 case Strategy.AmicableEngineByPrimary:
                     amicableEngine = new AmicableEngineByPrimary();
                     break;
+                case Strategy.ThreadedAmicableEngine:
+                    amicableEngine = new ThreadedAmicableEngine();
+                    break;
                 default:
-                    amicableEngine = new SmartPlunkAmicableEngine();
+                    amicableEngine = new ThreadedAmicableEngine();
                     break;
             }
             amicableEngine.Execute(input.minRange, input.maxRange, outputManager);
